@@ -1,0 +1,47 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="<%= root_path %>">Libreria El Parcial</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Libros', books_loan_books_path, class: 'nav-link' %>          
+        </li>
+        <% if user_signed_in? %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <%= image_tag('profile.png', class: 'logo', with: '30px', height: '24px') %>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><small class="dropdown-item"><%= current_user.email %></small></li>
+              <li><a class="dropdown-item" href="#">Perfil</a></li>
+              <li>
+                <%= link_to 'Prestamos', user_borrowed_books_path, class: 'dropdown-item' %>
+              </li>
+              <li><hr class="dropdown-divider"></li>
+              <li>
+                <%= link_to 'Cerrar session',  destroy_user_session_path, method: :delete, class: 'dropdown-item' %>
+              </li>
+            </ul>
+          </li>
+        <% else %>
+          <li class="nav-item right">
+            <%= link_to "Registrarse", new_user_registration_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Ingresar", new_user_session_path, class: 'nav-link' %>
+          </li>
+        <% end %>            
+      </ul>
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,22 @@
+<h1>Mis prestamos</h1>
+
+<table class="table table-dark table-striped table-hover">
+	<thead>
+		<tr>
+			<th>estado</th>
+			<th>libro</th>
+			<th>fecha limite</th>
+			<th>Fecha de entrega</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @borrowed_books.each do |b_book| %>
+		  <tr>
+		  	<td><%= b_book.status %></td>
+		  	<td><%= b_book.book.name %></td>
+		  	<td><%= b.limit_date %></td>
+		  	<td><%= b.return_date %></td>
+		  </tr>
+		<% end %>
+	</tbody>
+</table>

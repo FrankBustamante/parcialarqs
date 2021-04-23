@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Book:</strong>
+  <%= @borrowed_book.book_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @borrowed_book.user_id %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @borrowed_book.status %>
+</p>
+
+<p>
+  <strong>Limit date:</strong>
+  <%= @borrowed_book.limit_date %>
+</p>
+
+<p>
+  <strong>Return date:</strong>
+  <%= @borrowed_book.return_date %>
+</p>
+
+<%= link_to 'Edit', edit_borrowed_book_path(@borrowed_book) %> |
+<%= link_to 'Back', borrowed_books_path %>
