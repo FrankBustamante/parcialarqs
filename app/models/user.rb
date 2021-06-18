@@ -27,7 +27,9 @@ class User < ApplicationRecord
   has_many :wish_lists
 
   mount_uploader :profile, PhotoUploader
-  enum role: {usuario: '-1', admin: '1'}
+  enum role: {usuario: '-1', admin: '1'},
+       type_identification: {'CC': '0', 'CE': '1', 'PP': '2', 'TI': '3' }
+
 
   def get_image
     super self.profile_url

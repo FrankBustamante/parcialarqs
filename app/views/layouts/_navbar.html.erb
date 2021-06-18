@@ -27,7 +27,8 @@
                   <span>Puntage: <%= current_user.book_score %></span>
                 </small>
               </li>
-              <li><a class="dropdown-item" href="#">Perfil</a></li>
+              <li>
+                <%= link_to 'Perfil', profile_pages_path, class: 'dropdown-item' %>
               <li>
                 <%= link_to 'Prestamos', policy(BorrowedBook).index? ? borrowed_books_path : user_borrowed_books_path, class: 'dropdown-item' %>
               </li>

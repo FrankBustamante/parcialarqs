@@ -15,6 +15,13 @@ Rails.application.routes.draw do
   	end
   end
 
+  resources :pages, only: [] do
+    collection do
+      get :profile
+      patch :update_profile
+    end
+  end
+
   resources :authors
   devise_for :users
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
