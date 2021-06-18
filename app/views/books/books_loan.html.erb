@@ -1,14 +1,26 @@
 <div class="container">
 	<div class="row">
 		<% @books.each do |book| %>
-			<div class="card col-md-3" style="">
-				<%= image_tag book.photo_url, class: 'card-img-top' %>
-			  <img src="..." class="card-img-top" alt="...">
+			<div class="card col-md-3" style="margin: 5px;">
+				<%= image_tag book.get_image, class: 'card-img-top' %>
 			  <div class="card-body">
-			  	<h5 class="card-title"><%= book.name %></h5>
+			  	<h5 class="card-title"><%= book.title_description %></h5>
 			  	<small><%= book.author.full_name %></small>
 			    <p class="card-text"><%= book.description %></p>
 			  </div>
+        <div class="card-footer">
+          <%#= form_with(model: BorrowedBook.new, remote: true) do |form| %>
+            <%#= form.hidden_field :user_id, value: current_user.id %>
+            <%#= form.hidden_field :book_id, value: book.id %>
+            <%#= form.submit 'Prestar', class: 'btn btn-primary' %>
+          <%# end %>
+          <%= link_to 'Prestar', borrowed_books_path(borrowed_book: { user_id: current_user, book_id: book }), data: { method: :post }, class: 'btn btn-primary' %>
+
+          <%= link_to '#', class: 'btn btn-danger' do %>
+            <i><3</i>
+          <% end %>
+        </div>
+
 			</div>
 		<% end %>			
 	</div>

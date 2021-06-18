@@ -12,17 +12,32 @@
 #  identification         :string
 #  type_identification    :string           default("0"), not null
 #  birth_date             :date
-#  role                   :string           default("-1"), not null
+#  role                   :string           default("usuario"), not null
 #  book_score             :float            default(5.0)
 #  profile                :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
 class User < ApplicationRecord
+  include ViewsDecorator
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+  has_many :wish_lists
 
-   mount_uploader :photo, PhotoUploader
+  mount_uploader :profile, PhotoUploader
+  enum role: {usuario: '-1', admin: '1'}
+
+  def get_image
+    super self.profile_url
+  end
+
+  def other_description
+    super "#{self.email} | #{self.role}"
+  end
+
+  def short_description
+    super (self.full_name || self.email)
+  end
 end

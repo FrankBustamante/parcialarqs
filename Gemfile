@@ -55,3 +55,5 @@ gem 'carrierwave'
 
 group :development do
 end
+
+gem "pundit"

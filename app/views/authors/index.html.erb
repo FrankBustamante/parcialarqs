@@ -1,8 +1,7 @@
-<p id="notice"><%= notice %></p>
 
-<h1>Authors</h1>
+<h1>Authors <%= link_to '+', new_author_path, class: 'btn btn-xl btn-primary' %></h1>
 
-<table>
+<table class="table table-dark table-striped table-hover">
   <thead>
     <tr>
       <th>Full name</th>
@@ -17,7 +16,7 @@
       <tr>
         <td><%= author.full_name %></td>
         <td><%= author.description %></td>
-        <td><%= author.photo %></td>
+        <td><%= image_tag author.get_image, style: 'max-width: 50px;' %></td>
         <td><%= link_to 'Show', author %></td>
         <td><%= link_to 'Edit', edit_author_path(author) %></td>
         <td><%= link_to 'Destroy', author, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -28,4 +27,3 @@
 
 <br>
 
-<%= link_to 'New Author', new_author_path %>

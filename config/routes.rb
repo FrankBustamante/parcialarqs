@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   resources :books do
   	collection do
   		get :books_loan
+      get :wish_list
+      post :marked_wish
   	end
   end
 

@@ -1,8 +1,9 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Books</h1>
+<h1>Books <%= link_to '+', new_book_path, class: 'btn btn-primary' %></h1>
 
-<table>
+
+<table class="table table-dark table-striped table-hover">
   <thead>
     <tr>
       <th>Name</th>
@@ -28,8 +29,8 @@
         <td><%= book.stock %></td>
         <td><%= book.book_score %></td>
         <td><%= book.score %></td>
-        <td><%= book.photo %></td>
-        <td><%= book.author_id %></td>
+        <td><%= image_tag book.get_image, style: 'max-width: 50px;' %></td>
+        <td><%= book.author&.short_description %></td>
         <td><%= link_to 'Show', book %></td>
         <td><%= link_to 'Edit', edit_book_path(book) %></td>
         <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -40,4 +41,3 @@
 
 <br>
 
-<%= link_to 'New Book', new_book_path %>

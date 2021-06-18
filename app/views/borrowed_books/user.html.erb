@@ -5,6 +5,7 @@
 		<tr>
 			<th>estado</th>
 			<th>libro</th>
+      <th>Foto</th>
 			<th>fecha limite</th>
 			<th>Fecha de entrega</th>
 		</tr>
@@ -13,9 +14,12 @@
 		<% @borrowed_books.each do |b_book| %>
 		  <tr>
 		  	<td><%= b_book.status %></td>
-		  	<td><%= b_book.book.name %></td>
-		  	<td><%= b.limit_date %></td>
-		  	<td><%= b.return_date %></td>
+		  	<td><%= b_book.book&.title_description %></td>
+        <td>
+          <%= image_tag b_book.book&.get_image, style: 'width: 50px;' %>
+        </td>
+		  	<td><%= b_book.limit_date %></td>
+		  	<td><%= b_book.return_date %></td>
 		  </tr>
 		<% end %>
 	</tbody>

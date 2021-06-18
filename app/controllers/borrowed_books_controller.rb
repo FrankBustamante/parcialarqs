@@ -1,12 +1,15 @@
 class BorrowedBooksController < ApplicationController
+  after_action :verify_authorized
   before_action :set_borrowed_book, only: %i[ show edit update destroy ]
 
   # GET /borrowed_books or /borrowed_books.json
   def index
+    authorize BorrowedBook
     @borrowed_books = BorrowedBook.all
   end
 
   def user
+    authorize BorrowedBook
     @borrowed_books = BorrowedBook.where(user_id: current_user.id)
   end
 
@@ -16,6 +19,7 @@ class BorrowedBooksController < ApplicationController
 
   # GET /borrowed_books/new
   def new
+    authorize BorrowedBook
     @borrowed_book = BorrowedBook.new
   end
 
@@ -25,14 +29,18 @@ class BorrowedBooksController < ApplicationController
 
   # POST /borrowed_books or /borrowed_books.json
   def create
+    authorize BorrowedBook
     @borrowed_book = BorrowedBook.new(borrowed_book_params)
 
     respond_to do |format|
       if @borrowed_book.save
-        format.html { redirect_to @borrowed_book, notice: "Borrowed book was successfully created." }
-        format.json { render :show, status: :created, location: @borrowed_book }
+        if current_user.book_score < @borrowed_book.book.book_score
+          @borrowed_book.cancelado!
+        end
+        format.html { redirect_to user_borrowed_books_path, notice: "Borrowed book was successfully created." }
+        format.json { render @borrowed_book, status: :created, location: @borrowed_book }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { render books_loan_books_path, status: :unprocessable_entity }
         format.json { render json: @borrowed_book.errors, status: :unprocessable_entity }
       end
     end
@@ -63,6 +71,7 @@ class BorrowedBooksController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_borrowed_book
+      authorize BorrowedBook
       @borrowed_book = BorrowedBook.find(params[:id])
     end
 

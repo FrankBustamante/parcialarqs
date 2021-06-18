@@ -1,8 +1,11 @@
 class AuthorsController < ApplicationController
+  after_action :verify_authorized
+
   before_action :set_author, only: %i[ show edit update destroy ]
 
   # GET /authors or /authors.json
   def index
+    authorize Author
     @authors = Author.all
   end
 
@@ -12,6 +15,8 @@ class AuthorsController < ApplicationController
 
   # GET /authors/new
   def new
+    authorize Author
+
     @author = Author.new
   end
 
@@ -21,6 +26,8 @@ class AuthorsController < ApplicationController
 
   # POST /authors or /authors.json
   def create
+    authorize Author
+
     @author = Author.new(author_params)
 
     respond_to do |format|
@@ -59,6 +66,8 @@ class AuthorsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_author
+      authorize Author
+
       @author = Author.find(params[:id])
     end
 
